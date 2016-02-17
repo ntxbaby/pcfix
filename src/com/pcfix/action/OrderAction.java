@@ -38,9 +38,10 @@ public class OrderAction {
 	    try{
 	    	s  = HibernateSessionFactory.getSession();
 	    	t = s.beginTransaction();
-	    	order.setPriceId(-1);
+	    	//order.setPriceId(-1);
 	    	s.save(order);
 	    	t.commit();
+	    	System.out.println("add++++++++++++++++");
 	    	}catch (HibernateException e){
 	    		e.printStackTrace();
 	    	}finally{

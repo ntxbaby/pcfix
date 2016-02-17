@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 <hibernate-mapping>
-    <class name="com.pcfix.db.Order" table="order">
-        <id name="orderId" column="id">
+    <class name="com.pcfix.db.Order" table="fix_order">
+        <id name="orderId" column="orderId">
             <generator class="native"></generator>
         </id>
-        <property name="desc" type="string"></property>
+        <property name="desc" column="descript" type="string"></property>
         <property name="phone" type="string"></property>
         <property name="addr" type="string"></property>
         <property name="time" type="string"></property>

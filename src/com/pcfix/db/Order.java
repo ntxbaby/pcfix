@@ -12,14 +12,13 @@ public class Order {
 	private int clientId;
 	private int serverId;
 	private int priceId;
-
-	
 	public int getOrderId() {
 		return orderId;
 	}
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
+	
 	public String getDesc() {
 		return desc;
 	}
@@ -74,4 +73,7 @@ public class Order {
 	public void setPriceId(int priceId) {
 		this.priceId = priceId;
 	}
+	
+	
+	
 }
