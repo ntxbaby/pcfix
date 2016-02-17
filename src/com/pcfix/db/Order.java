@@ -12,6 +12,7 @@ public class Order {
 	private int clientId;
 	private int serverId;
 	private int priceId;
+	private int status;
 	public int getOrderId() {
 		return orderId;
 	}
@@ -72,6 +73,12 @@ public class Order {
 	}
 	public void setPriceId(int priceId) {
 		this.priceId = priceId;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 	

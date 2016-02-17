@@ -14,5 +14,6 @@
         <property name="clientId" type="int"></property>
         <property name="serverId" type="int"></property>
         <property name="priceId" type="int"></property>
+        <property name="status" type="int"></property>
     </class>
 </hibernate-mapping>
