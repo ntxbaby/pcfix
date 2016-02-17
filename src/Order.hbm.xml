@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="com.pcfix.db.Order" table="order">
+        <id name="orderId" column="id">
+            <generator class="native"></generator>
+        </id>
+        <property name="desc" type="string"></property>
+        <property name="phone" type="string"></property>
+        <property name="addr" type="string"></property>
+        <property name="time" type="string"></property>
+        <property name="mathod" type="int"></property>
+        <property name="problem" type="int"></property>
+        <property name="clientId" type="int"></property>
+        <property name="serverId" type="int"></property>
+        <property name="priceId" type="int"></property>
+    </class>
+</hibernate-mapping>
