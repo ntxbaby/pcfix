@@ -8,7 +8,8 @@
         <property name="desc" column="descript" type="string"></property>
         <property name="phone" type="string"></property>
         <property name="addr" type="string"></property>
-        <property name="time" type="string"></property>
+        <property name="createTime" type="string"></property>
+        <property name="serveTime" type="string"></property>
         <property name="mathod" type="int"></property>
         <property name="problem" type="int"></property>
         <property name="clientId" type="int"></property>

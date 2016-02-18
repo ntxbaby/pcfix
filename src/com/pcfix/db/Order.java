@@ -6,7 +6,8 @@ public class Order {
 	private String desc;
 	private String phone;
 	private String addr;
-	private String time;
+	private String createTime;
+	private String serveTime;
 	private int mathod;
 	private int problem;
 	private int clientId;
@@ -38,11 +39,18 @@ public class Order {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	public String getTime() {
-		return time;
+	
+	public String getCreateTime() {
+		return createTime;
 	}
-	public void setTime(String time) {
-		this.time = time;
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+	public String getServeTime() {
+		return serveTime;
+	}
+	public void setServeTime(String serveTime) {
+		this.serveTime = serveTime;
 	}
 	public int getMathod() {
 		return mathod;
