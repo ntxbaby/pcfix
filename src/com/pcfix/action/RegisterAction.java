@@ -165,6 +165,7 @@ public class RegisterAction  {
 	    			result = -1;
 		    		error = 202;//登陆用户类型错误
 	    		}
+	    		user = u;
 	    	}
 	    	else{
 	    		result = -1;
