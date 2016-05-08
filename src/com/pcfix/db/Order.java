@@ -1,13 +1,15 @@
 package com.pcfix.db;
 
+import java.util.Date;
+
 
 public class Order {
 	private int orderId;
 	private String desc;
 	private String phone;
 	private String addr;
-	private String createTime;
-	private String serveTime;
+	private Date createTime = new Date();
+	private Date serveTime;
 	private int mathod;
 	private int problem;
 	private int clientId;
@@ -40,16 +42,16 @@ public class Order {
 		this.addr = addr;
 	}
 	
-	public String getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	public String getServeTime() {
+	public Date getServeTime() {
 		return serveTime;
 	}
-	public void setServeTime(String serveTime) {
+	public void setServeTime(Date serveTime) {
 		this.serveTime = serveTime;
 	}
 	public int getMathod() {

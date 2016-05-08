@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="com.pcfix.db.Price" table="price">
+        <id name="id" column="id">
+            <generator class="native"></generator>
+        </id>
+        <property name="orderId" type="int"></property>
+        <property name="serverId" type="int"></property>
+        <property name="price" type="int"></property>
+        <property name="selected" type="int"></property>
+    </class>
+</hibernate-mapping>

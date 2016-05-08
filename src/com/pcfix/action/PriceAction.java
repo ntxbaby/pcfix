@@ -10,49 +10,61 @@ import org.hibernate.Transaction;
 import com.opensymphony.xwork2.Action;
 import com.pcfix.db.HibernateSessionFactory;
 import com.pcfix.db.Order;
+import com.pcfix.db.Price;
 import com.pcfix.db.User;
 
-public class OrderAction {
-	private Order order;
+public class PriceAction {
+	private Price price;
 	private int result  = 0;
 	private int error  = 0;
-	private List<Order> orders;
+	private List<Price> prices;
 	
-	public Order getOrder() {
-		return order;
+	
+	
+	
+	
+	public Price getPrice() {
+		return price;
 	}
-	public void setOrder(Order order) {
-		this.order = order;
+
+	public void setPrice(Price price) {
+		this.price = price;
 	}
+
 	public int getResult() {
 		return result;
 	}
+
 	public void setResult(int result) {
 		this.result = result;
 	}
+
 	public int getError() {
 		return error;
 	}
+
 	public void setError(int error) {
 		this.error = error;
 	}
-	
-	public List<Order> getOrders() {
-		return orders;
+
+	public List<Price> getPrices() {
+		return prices;
 	}
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+
+	public void setPrices(List<Price> prices) {
+		this.prices = prices;
 	}
+
 	public String add(){
 		Session s = null;
 	    Transaction t = null;
 	    try{
 	    	s  = HibernateSessionFactory.getSession();
 	    	t = s.beginTransaction();
-	    	order.setPriceId(-1);
-	    	s.save(order);
+	    	price.setSelected(0);
+	    	s.save(price);
 	    	t.commit();
-	    	System.out.println("add++++++++++++++++");
+	    	System.out.println("add shenqingzhe++++++++++++++++");
 	    	}catch (HibernateException e){
 	    		e.printStackTrace();
 	    	}finally{
@@ -66,34 +78,14 @@ public class OrderAction {
 	    Transaction t = null;
 	    try{
 	    	s  = HibernateSessionFactory.getSession();
-	    	orders = s.createQuery("from Order o where o.priceId = -1").list();
-	    	if(orders.isEmpty() )
+	    	String hql = "from Price o where o.orderId=" + price.getOrderId();
+	    	prices = s.createQuery(hql).list();
+	    	if(prices.isEmpty() )
 	    	{
 	    			result = -1;
-		    		error = 300;//订单为空
+		    		error = 400;//申请者为空
 	    	}
 	    	System.out.println("list++++++++++++++++");
-	    	}catch (HibernateException e){
-	    		e.printStackTrace();
-	    	}finally{
-	    		s.close();
-	    	}
-		return Action.SUCCESS;
-	}
-	
-	public String myList(){
-		Session s = null;
-	    Transaction t = null;
-	    try{
-	    	s  = HibernateSessionFactory.getSession();
-	    	String hql = "from Order o where o.clientId=" + order.getClientId();
-	    	orders = s.createQuery(hql).list();
-	    	if(orders.isEmpty() )
-	    	{
-	    			result = -1;
-		    		error = 300;//订单为空
-	    	}
-	    	System.out.println("++++++++++++++list my order+++++++++++++++");
 	    	}catch (HibernateException e){
 	    		e.printStackTrace();
 	    	}finally{
