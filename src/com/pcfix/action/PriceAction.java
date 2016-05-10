@@ -85,7 +85,7 @@ public class PriceAction {
 	    			result = -1;
 		    		error = 400;//…Í«Î’ﬂŒ™ø’
 	    	}
-	    	System.out.println("list++++++++++++++++");
+	    	System.out.println("list+++++++list prices+++++++++");
 	    	}catch (HibernateException e){
 	    		e.printStackTrace();
 	    	}finally{

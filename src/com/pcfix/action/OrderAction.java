@@ -87,13 +87,14 @@ public class OrderAction {
 	    try{
 	    	s  = HibernateSessionFactory.getSession();
 	    	String hql = "from Order o where o.clientId=" + order.getClientId();
+	   
 	    	orders = s.createQuery(hql).list();
 	    	if(orders.isEmpty() )
 	    	{
 	    			result = -1;
 		    		error = 300;//¶©µ¥Îª¿Õ
 	    	}
-	    	System.out.println("++++++++++++++list my order+++++++++++++++");
+	    	System.out.println("++++++++++++++list my order+++++++++++++++"+hql);
 	    	}catch (HibernateException e){
 	    		e.printStackTrace();
 	    	}finally{

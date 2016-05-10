@@ -21,6 +21,7 @@
 	<mapping resource="User.hbm.xml" />
 	<mapping resource="Order.hbm.xml" />
 	<mapping resource="Price.hbm.xml" />
+	<mapping resource="ViewOrder.hbm.xml" />
 
 </session-factory>
 
