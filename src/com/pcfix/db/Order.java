@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Order {
 	private int orderId;
+	
 	private String desc;
 	private String phone;
 	private String addr;
@@ -16,6 +17,23 @@ public class Order {
 	private int serverId;
 	private int priceId;
 	private int status;
+//	public Order(int orderId, String desc, String phone, String addr,
+//			Date createTime, Date serveTime, int mathod, int problem,
+//			int clientId, int serverId, int priceId, int status) {
+//		super();
+//		this.orderId = orderId;
+//		this.desc = desc;
+//		this.phone = phone;
+//		this.addr = addr;
+//		this.createTime = createTime;
+//		this.serveTime = serveTime;
+//		this.mathod = mathod;
+//		this.problem = problem;
+//		this.clientId = clientId;
+//		this.serverId = serverId;
+//		this.priceId = priceId;
+//		this.status = status;
+//	}
 	public int getOrderId() {
 		return orderId;
 	}
