@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.opensymphony.xwork2.Action;
+import com.pcfix.db.Applyer;
 import com.pcfix.db.HibernateSessionFactory;
 import com.pcfix.db.Order;
 import com.pcfix.db.Price;
@@ -17,11 +18,7 @@ public class PriceAction {
 	private Price price;
 	private int result  = 0;
 	private int error  = 0;
-	private List<Price> prices;
-	
-	
-	
-	
+	private List<Applyer> applyers;
 	
 	public Price getPrice() {
 		return price;
@@ -47,12 +44,12 @@ public class PriceAction {
 		this.error = error;
 	}
 
-	public List<Price> getPrices() {
-		return prices;
+	public List<Applyer> getApplyers() {
+		return applyers;
 	}
 
-	public void setPrices(List<Price> prices) {
-		this.prices = prices;
+	public void setApplyers(List<Applyer> applyers) {
+		this.applyers = applyers;
 	}
 
 	public String add(){
@@ -73,19 +70,23 @@ public class PriceAction {
 		return Action.SUCCESS;
 	}
 	
-	public String list(){
+	
+	
+	public String listApplyer(){
 		Session s = null;
 	    Transaction t = null;
 	    try{
 	    	s  = HibernateSessionFactory.getSession();
-	    	String hql = "from Price o where o.orderId=" + price.getOrderId();
-	    	prices = s.createQuery(hql).list();
-	    	if(prices.isEmpty() )
+	    	
+	    	String hql = "select new com.pcfix.db.Applyer(o.id,o.orderId,o.serverId,o.price,o.selected,u.name) from Price o,User u where o.serverId=u.id and o.orderId=" + price.getOrderId();
+	    	applyers = s.createQuery(hql).list();
+	    	if(applyers.isEmpty() )
 	    	{
 	    			result = -1;
 		    		error = 400;//…Í«Î’ﬂŒ™ø’
 	    	}
-	    	System.out.println("list+++++++list prices+++++++++");
+	    	System.out.println("+++++++listApplyer+++++++++");
+	    	
 	    	}catch (HibernateException e){
 	    		e.printStackTrace();
 	    	}finally{

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="com.pcfix.db.HistoryOrder" table="his_order">
+        <id name="hisOrderId" column="hisOrderId">
+            <generator class="native"></generator>
+        </id>
+        <property name="orderId" type="int"></property>
+        <property name="desc" column="descript" type="string"></property>
+        <property name="phone" type="string"></property>
+        <property name="addr" type="string"></property>
+        <property name="createTime" type="timestamp"></property>
+        <property name="serveTime" type="timestamp"></property>
+        <property name="mathod" type="int"></property>
+        <property name="problem" type="int"></property>
+        <property name="clientId" type="int"></property>
+        <property name="clientName" type="string"></property>
+        <property name="serverId" type="int"></property>
+        <property name="serverName" type="string"></property>
+        <property name="price" type="int"></property>
+        <property name="finishType" type="int"></property>
+        <property name="comment" type="string"></property>
+    </class>
+</hibernate-mapping>

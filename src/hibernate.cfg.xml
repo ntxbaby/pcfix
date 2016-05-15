@@ -22,6 +22,7 @@
 	<mapping resource="Order.hbm.xml" />
 	<mapping resource="Price.hbm.xml" />
 	<mapping resource="ViewOrder.hbm.xml" />
+	<mapping resource="HistoryOrder.hbm.xml" />
 
 </session-factory>
 

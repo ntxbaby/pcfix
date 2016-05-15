@@ -108,6 +108,12 @@ public class Order {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+	public static final int STATUS_APPLY = 0;
+	public static final int STATUS_DEAL = 1;
+	public static final int STATUS_VARIFY = 2;
+	public static final int STATUS_FINISH = 3;
+	public static final int STATUS_TIMEOUT = 4;
 	
 	
 	
