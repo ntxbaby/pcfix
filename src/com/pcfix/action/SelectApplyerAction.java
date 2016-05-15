@@ -146,6 +146,97 @@ public class SelectApplyerAction {
 		return Action.SUCCESS;
 	}
 	
+	public String finish(){
+		Session s = null;
+	    Transaction t = null;
+	    try{
+	    	
+	    	s  = HibernateSessionFactory.getSession();
+	    	Transaction trans = s.beginTransaction();
+	    	//order订单的status改为验收
+	    	String hql  = String.format("update Order o set o.status=%d where o.orderId=%d", 
+	    			Order.STATUS_VARIFY, orderId);
+	    	s.createQuery(hql).executeUpdate();
+	    	
+	    	System.out.println("++++++++++++++order订单的status改为验收+++++++++++++++");
+	    	
+	    	//修改price表的status改为验收
+	    	String hqlUpdatePrice  = String.format("update Price p set p.selected=%d where p.orderId=%d", 
+	    			Order.STATUS_VARIFY, orderId);
+	    	s.createQuery(hqlUpdatePrice).executeUpdate();
+	    	
+	    	System.out.println("++++++++++++++修改price表的status改为验收+++++++++++++++");
+	    	
+	    	trans.commit();
+	    	
+	    	}catch (HibernateException e){
+	    		e.printStackTrace();
+	    	}finally{
+	    		s.close();
+	    	}
+		return Action.SUCCESS;
+	}
+	
+	public String ok(){
+		Session s = null;
+	    Transaction t = null;
+	    try{
+	    	
+	    	s  = HibernateSessionFactory.getSession();
+	    	Transaction trans = s.beginTransaction();
+	    	
+	    	//进入历史订单
+	    	String sql =  String.format("select o.orderId,o.descript,o.phone,o.addr,o.createTime,o.serveTime,o.mathod,o.problem,o.clientId," +
+	    			"(select name from user where id=o.clientId) as clientName," +
+	    			"p.serverId,(select name from user where id=p.serverId) as serverName,p.price from fix_order o, price p " +
+	    			"where o.orderId=p.orderId and p.orderId=%d", orderId);
+	    	List<Object[]> timeoutServers = s.createSQLQuery(sql).list();
+	    	System.out.printf("++++++++++++++timeoutServers.size=%d+++++++++++++++\n", timeoutServers.size());
+	    	for(Object[] item : timeoutServers){
+	    		HistoryOrder ho = new HistoryOrder();
+	    		ho.setOrderId((Integer)item[0]);
+	    		ho.setDesc((String)item[1]);
+	    		ho.setPhone((String)item[2]);
+	    		ho.setAddr((String)item[3]);
+	    		//ho.setCreateTime((Date)item[4]);System.out.println("++++++++++++++444+++++++++++++++\n");
+	    		//ho.setServeTime((Date)item[5]);System.out.println("++++++++++++++555+++++++++++++++\n");
+	    		ho.setMathod((Integer)item[6]);
+	    		ho.setProblem((Integer)item[7]);
+	    		ho.setClientId((Integer)item[8]);
+	    		ho.setClientName((String)item[9]);
+	    		ho.setServerId((Integer)item[10]);
+	    		ho.setServerName((String)item[11]);
+	    		ho.setPrice((Integer)item[12]);
+	    		ho.setFinishTime(new Date());
+	    		ho.setFinishType(HistoryOrder.FINISH_TYPE_FINISH);
+	    		s.save(ho);
+	    	}
+	    	
+	    	System.out.println("++++++++++++++查询没被选择的server的price,进入历史订单+++++++++++++++");
+	    	
+	    	//删除order记录
+	    	String hqlDeleteO  = String.format("delete from Order o where o.orderId=%d", 
+	    			orderId);
+	    	s.createQuery(hqlDeleteO).executeUpdate();
+	    	
+	    	System.out.println("++++++++++++++删除没被选择的server的price记录+++++++++++++++");
+	    	
+	    	String hqlDeleteP  = String.format("delete from Price p where p.orderId=%d", 
+	    			orderId);
+	    	s.createQuery(hqlDeleteP).executeUpdate();
+	    	
+	    	System.out.println("++++++++++++++删除没被选择的server的price记录+++++++++++++++");
+	    	
+	    	trans.commit();
+	    	
+	    	}catch (HibernateException e){
+	    		e.printStackTrace();
+	    	}finally{
+	    		s.close();
+	    	}
+		return Action.SUCCESS;
+	}
+	
 	
 }
 

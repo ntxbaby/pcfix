@@ -130,28 +130,6 @@ public class HistoryOrder {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-//	public static int getStatusApply() {
-//		return STATUS_APPLY;
-//	}
-//	public static int getStatusDeal() {
-//		return STATUS_DEAL;
-//	}
-//	public static int getStatusVarify() {
-//		return STATUS_VARIFY;
-//	}
-//	public static int getStatusFinish() {
-//		return STATUS_FINISH;
-//	}
-//	public static int getStatusTimeout() {
-//		return STATUS_TIMEOUT;
-//	}
-//	public static int getFinishTypeFinish() {
-//		return FINISH_TYPE_FINISH;
-//	}
-//	public static int getFinishTypeTimeout() {
-//		return FINISH_TYPE_TIMEOUT;
-//	}
-	//
 	public static final int STATUS_APPLY = 0;
 	public static final int STATUS_DEAL = 1;
 	public static final int STATUS_VARIFY = 2;
@@ -160,7 +138,7 @@ public class HistoryOrder {
 	
 	//完成类型
 	public static final int FINISH_TYPE_FINISH = 0;
-	public static final int FINISH_TYPE_TIMEOUT = 0;
+	public static final int FINISH_TYPE_TIMEOUT = 1;
 	
 	
 }
