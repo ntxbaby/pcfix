@@ -22,7 +22,16 @@ public class RegisterAction  {
 	private User user;
 	private int result  = 0;
 	private int error  = 0;
+	private List<User> users;
 	
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -91,7 +100,7 @@ public class RegisterAction  {
 	
 	
 	
-	public boolean isUserExisted(){
+	private boolean isUserExisted(){
 		if(!isTableExisted()){
 			return false;
 		}
@@ -130,7 +139,7 @@ public class RegisterAction  {
 	    	}
 	}
 
-	public String execute() throws Exception {
+	public String add() {
 		// TODO Auto-generated method stub
 		if(!isUserExisted()){
 			addUser();
@@ -181,6 +190,44 @@ public class RegisterAction  {
 	}
 	public String login(){
 		validate();
+		return Action.SUCCESS;
+	}
+	
+	public String delete(){
+		Session s = null;
+	    Transaction t = null;
+	    try{
+	    	s  = HibernateSessionFactory.getSession();
+	    	t = s.beginTransaction();
+	    	String hql1 = String.format("delete from User u where u.id=%d", user.getId());
+	    	s.createQuery(hql1).executeUpdate();
+	    	String hql2 = String.format("delete from Order o where o.clientId=%d", user.getId());
+	    	s.createQuery(hql2).executeUpdate();
+	    	t.commit();
+	    	System.out.println("++++++++delete users++++++++");
+	    	}catch (HibernateException e){
+	    		e.printStackTrace();
+	    	}finally{
+	    		s.close();
+	    	}
+		return Action.SUCCESS;
+	}
+	
+	public String list(){
+		Session s = null;
+	    Transaction t = null;
+	    try{
+	    	s  = HibernateSessionFactory.getSession();
+	    	String hql1 = "from User";
+	    	users = s.createQuery(hql1).list();
+	    	result = 0;
+    		error = 200;//µÇÂ½ÓÃ»§ÃÜÂë´íÎó
+	    	System.out.println("++++++++list users++++++++");
+	    	}catch (HibernateException e){
+	    		e.printStackTrace();
+	    	}finally{
+	    		s.close();
+	    	}
 		return Action.SUCCESS;
 	}
 }

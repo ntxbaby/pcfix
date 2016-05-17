@@ -70,18 +70,38 @@ public class OrderAction {
 		return Action.SUCCESS;
 	}
 	
+	public String delete(){
+		Session s = null;
+	    Transaction t = null;
+	    try{
+	    	s  = HibernateSessionFactory.getSession();
+	    	t = s.beginTransaction();
+	    	String hql1 = String.format("delete from Order o where o.orderId=%d", order.getOrderId());
+	    	s.createQuery(hql1).executeUpdate();
+	    	String hql2 = String.format("delete from Price p where p.orderId=%d", order.getOrderId());
+	    	s.createQuery(hql2).executeUpdate();
+	    	t.commit();
+	    	System.out.println("++++++++delete orders++++++++");
+	    	}catch (HibernateException e){
+	    		e.printStackTrace();
+	    	}finally{
+	    		s.close();
+	    	}
+		return Action.SUCCESS;
+	}
+	
 	public String list(){
 		Session s = null;
 	    Transaction t = null;
 	    try{
 	    	s  = HibernateSessionFactory.getSession();
-	    	orders = s.createQuery("from Order o where o.priceId = -1").list();
+	    	orders = s.createQuery("from Order o where o.priceId=-1").list();
 	    	if(orders.isEmpty() )
 	    	{
 	    			result = -1;
 		    		error = 300;//¶©µ¥Îª¿Õ
 	    	}
-	    	System.out.println("list++++++++++++++++");
+	    	System.out.println("+++++++++list orders+++++++");
 	    	}catch (HibernateException e){
 	    		e.printStackTrace();
 	    	}finally{
