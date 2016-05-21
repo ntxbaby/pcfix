@@ -167,7 +167,7 @@ public class RegisterAction  {
 	    	if(null == user)
 	    	{
 	    		result = -1;
-	    		error = 203;//��½�û�ȱ�ٲ���
+	    		error = 202;//参数错误
 	    		return;
 	    	}
 	    	List<User> l = s.createQuery("from User u where u.name = '" + user.getName() + "'").list();
@@ -176,17 +176,13 @@ public class RegisterAction  {
 	    		User u = l.get(0);
 	    		if( !u.getPwd().equals(user.getPwd() ) ){
 	    			result = -1;
-		    		error = 201;//��½�û��������
-	    		}
-	    		if( u.getType() != user.getType() ){
-	    			result = -1;
-		    		error = 202;//��½�û����ʹ���
+		    		error = 201;//密码错误
 	    		}
 	    		user = u;
 	    	}
 	    	else{
 	    		result = -1;
-	    		error = 200;//��½�û�������
+	    		error = 200;//用户存在
 	    	}
 	    	
 	    	}catch (HibernateException e){
