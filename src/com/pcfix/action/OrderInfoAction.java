@@ -1,6 +1,8 @@
 package com.pcfix.action;
 
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,35 +67,34 @@ public class OrderInfoAction {
 	public void setOrderInfos(List<OrderInfo> orderInfos) {
 		this.orderInfos = orderInfos;
 	}
+	
+	private Date str2Date(String str)
+	{
+		
+		if(str == null) 
+			return null;
+		else{
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    		try {
+				
+    			return sdf.parse( str ) ;
+    			
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return null;
+		
+	}
 
 	public String listActiveOrders(){
 		Session s = null;
 	    Transaction t = null;
 	    try{
 	    	s  = HibernateSessionFactory.getSession();
-/*
-	    	String hql = "select new com.pcfix.db.OrderInfo(" +
-	    			"o.orderId,o.desc,o.phone,o.addr,o.createTime,o.serveTime,o.mathod," +
-	    			"o.problem,o.clientId," +
-	    			"(select name from User where id=o.clientId) as clientName," +
-	    			"o.priceId,o.status,p.serverId," +
-	    			"(select name from User where id=p.serverId) as serverName," +
-	    			"p.price,p.selected," +
-	    			"(select count(*) from Price where orderId=o.orderId) as applyerNum) " +
-	    			"from Order o left join Price p with o.priceId=p.id where o.priceId=-1";
-	    	*/
-	    	
-	    	/*
-	    	 
-	    	 
-	    	String sql = "select o.orderId,o.descript,o.phone,o.addr,o.createTime,o.serveTime,o.mathod,o.problem,o.clientId,"+
-			"(select name from user where id=o.clientId) as clientName," +
-			"o.priceId,o.status,p.serverId," +
-			"(select name from user where id=p.serverId) as serverName," +
-			"p.price,p.selected," +
-			"(select count(*) from price where orderId=o.orderId) as applyerNum "+ 
-			"from fix_order o left join price p on o.orderId=p.orderId where o.priceId=-1";
-	    	*/
+
 	    	String sql = "select o.orderId,o.descript,o.phone,o.addr," +
 	    			"o.createTime,o.serveTime,o.mathod,o.problem,o.clientId," +
 	    			"(select name from user where id=o.clientId) as clientName," +
@@ -110,8 +111,12 @@ public class OrderInfoAction {
 	    		oi.setDesc((String)item[1]);
 	    		oi.setPhone((String)item[2]);
 	    		oi.setAddr((String)item[3]);
-	    		//oi.setCreateTime(item[4]);
-	    		//oi.setServeTime(item[5]);
+	    		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    		
+					oi.setCreateTime( (String)item[4] );
+					oi.setServeTime( (String)item[5]  ) ;
+				
+	    		
 	    		oi.setMathod((Integer)item[6]);
 	    		oi.setProblem((Integer)item[7]);
 	    		oi.setClientId((Integer)item[8]);
@@ -128,7 +133,7 @@ public class OrderInfoAction {
 	    	if(orderInfos.isEmpty() )
 	    	{
 	    			result = -1;
-		    		error = 300;//¶©µ¥Îª¿Õ
+		    		error = 300;//ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
 	    	}
 	    	System.out.println("++++++++listActiveOrders++++++++");
 	    	}catch (HibernateException e){
@@ -161,8 +166,8 @@ public class OrderInfoAction {
 	    		oi.setDesc((String)item[1]);
 	    		oi.setPhone((String)item[2]);
 	    		oi.setAddr((String)item[3]);
-	    		//oi.setCreateTime(item[4]);
-	    		//oi.setServeTime(item[5]);
+	    		oi.setCreateTime( (String)item[4] );
+				oi.setServeTime( (String)item[5]  ) ;
 	    		oi.setMathod((Integer)item[6]);
 	    		oi.setProblem((Integer)item[7]);
 	    		oi.setClientId((Integer)item[8]);
@@ -179,7 +184,7 @@ public class OrderInfoAction {
 	    	if(orderInfos.isEmpty() )
 	    	{
 	    			result = -1;
-		    		error = 300;//¶©µ¥Îª¿Õ
+		    		error = 300;//ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
 	    	}
 	    	System.out.println("++++++++++++++listClientOrders+++++++++++++++");
 	    	}catch (HibernateException e){
@@ -214,8 +219,8 @@ public class OrderInfoAction {
 	    		oi.setDesc((String)item[1]);
 	    		oi.setPhone((String)item[2]);
 	    		oi.setAddr((String)item[3]);
-	    		//oi.setCreateTime(item[4]);
-	    		//oi.setServeTime(item[5]);
+	    		oi.setCreateTime( (String)item[4] );
+				oi.setServeTime( (String)item[5]  ) ;
 	    		oi.setMathod((Integer)item[6]);
 	    		oi.setProblem((Integer)item[7]);
 	    		oi.setClientId((Integer)item[8]);
@@ -232,7 +237,7 @@ public class OrderInfoAction {
 	    	if(orderInfos.isEmpty() )
 	    	{
 	    			result = -1;
-		    		error = 300;//¶©µ¥Îª¿Õ
+		    		error = 300;//ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
 	    	}
 	    	System.out.println("++++++++++++++listServerOrders+++++++++++++++");
 	    	}catch (HibernateException e){

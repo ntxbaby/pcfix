@@ -11,8 +11,8 @@
         
        
         
-        <property name="createTime" type="timestamp"></property>
-        <property name="serveTime" type="timestamp"></property>
+        <property name="createTime" type="string"></property>
+        <property name="serveTime" type="string"></property>
         <property name="mathod" type="int"></property>
         <property name="problem" type="int"></property>
         <property name="clientId" type="int"></property>

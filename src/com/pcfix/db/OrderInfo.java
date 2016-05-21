@@ -10,27 +10,27 @@ public class OrderInfo {
 	private String desc;
 	private String phone;
 	private String addr;
-	private Date createTime;
-	private Date serveTime;
+	private String createTime;
+	private String serveTime;
 	private int mathod;
 	private int problem;
 	private int clientId;
 	private String clientName;
 	private int priceId;
 	private int status;
-	//ÉêÇëÕß(·þÎñÕß)ÐÅÏ¢
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½Ï¢
 	private int serverId;
 	private String serverName;
 	private int price;
 	private int selected;
-	//ÉêÇëÕß¸öÊý
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½
 	private BigInteger applyerNum;
 
 
 	
 	
 	public OrderInfo(int orderId, String desc, String phone, String addr,
-			Date createTime, Date serveTime, int mathod, int problem,
+			String createTime, String serveTime, int mathod, int problem,
 			int clientId, String clientName, int priceId, int status,
 			int serverId, String serverName, int price, int selected,
 			BigInteger applyerNum) {
@@ -86,16 +86,16 @@ public class OrderInfo {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	public Date getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	public Date getServeTime() {
+	public String getServeTime() {
 		return serveTime;
 	}
-	public void setServeTime(Date serveTime) {
+	public void setServeTime(String serveTime) {
 		this.serveTime = serveTime;
 	}
 	public int getMathod() {

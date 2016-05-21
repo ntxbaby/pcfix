@@ -18,12 +18,20 @@ import com.pcfix.db.HibernateSessionFactory;
 import com.pcfix.db.User;
 
 public class RegisterAction  {
-	
+	private String newPwd;
 	private User user;
 	private int result  = 0;
 	private int error  = 0;
 	private List<User> users;
 	
+	public String getNewPwd() {
+		return newPwd;
+	}
+
+	public void setNewPwd(String newPwd) {
+		this.newPwd = newPwd;
+	}
+
 	public List<User> getUsers() {
 		return users;
 	}
@@ -145,7 +153,7 @@ public class RegisterAction  {
 			addUser();
 		}else{
 			result = -1;
-			error = 100;//×¢²áÓÃ»§ÒÑ¾­´æÔÚ
+			error = 100;//×¢ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	    	
 		return Action.SUCCESS;
@@ -159,7 +167,7 @@ public class RegisterAction  {
 	    	if(null == user)
 	    	{
 	    		result = -1;
-	    		error = 203;//µÇÂ½ÓÃ»§È±ÉÙ²ÎÊı
+	    		error = 203;//ï¿½ï¿½Â½ï¿½Ã»ï¿½È±ï¿½Ù²ï¿½ï¿½ï¿½
 	    		return;
 	    	}
 	    	List<User> l = s.createQuery("from User u where u.name = '" + user.getName() + "'").list();
@@ -168,17 +176,17 @@ public class RegisterAction  {
 	    		User u = l.get(0);
 	    		if( !u.getPwd().equals(user.getPwd() ) ){
 	    			result = -1;
-		    		error = 201;//µÇÂ½ÓÃ»§ÃÜÂë´íÎó
+		    		error = 201;//ï¿½ï¿½Â½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	    		}
 	    		if( u.getType() != user.getType() ){
 	    			result = -1;
-		    		error = 202;//µÇÂ½ÓÃ»§ÀàĞÍ´íÎó
+		    		error = 202;//ï¿½ï¿½Â½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Í´ï¿½ï¿½ï¿½
 	    		}
 	    		user = u;
 	    	}
 	    	else{
 	    		result = -1;
-	    		error = 200;//µÇÂ½ÓÃ»§²»´æÔÚ
+	    		error = 200;//ï¿½ï¿½Â½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	    	}
 	    	
 	    	}catch (HibernateException e){
@@ -221,8 +229,38 @@ public class RegisterAction  {
 	    	String hql1 = "from User";
 	    	users = s.createQuery(hql1).list();
 	    	result = 0;
-    		error = 200;//µÇÂ½ÓÃ»§ÃÜÂë´íÎó
+    		error = 200;//ï¿½ï¿½Â½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	    	System.out.println("++++++++list users++++++++");
+	    	}catch (HibernateException e){
+	    		e.printStackTrace();
+	    	}finally{
+	    		s.close();
+	    	}
+		return Action.SUCCESS;
+	}
+	
+	public String changePwd(){
+		Session s = null;
+	    Transaction t = null;
+	    try{
+	    	s  = HibernateSessionFactory.getSession();
+	    	t = s.beginTransaction();
+	    	String hql1 = String.format("from User u where u.id=%d", user.getId());
+	    	User u =  (User) s.createQuery(hql1).uniqueResult();
+	    	if(u.getPwd().equals(user.getPwd()))
+	    	{
+	    		u.setPwd(newPwd);
+	    		s.update(u);
+	    		result = 0;
+	    	}
+	    	else
+	    	{
+	    		//æ—§å¯†ç ä¸å¯¹
+	    		result = -1;
+	    		error = -100;
+	    	}
+	    	t.commit();
+	    	System.out.println("++++++++change pwd++++++++");
 	    	}catch (HibernateException e){
 	    		e.printStackTrace();
 	    	}finally{

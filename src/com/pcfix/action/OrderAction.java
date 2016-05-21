@@ -99,7 +99,7 @@ public class OrderAction {
 	    	if(orders.isEmpty() )
 	    	{
 	    			result = -1;
-		    		error = 300;//¶©µ¥Îª¿Õ
+		    		error = 300;//è®¢å•ä¸ºç©º
 	    	}
 	    	System.out.println("+++++++++list orders+++++++");
 	    	}catch (HibernateException e){
@@ -110,72 +110,5 @@ public class OrderAction {
 		return Action.SUCCESS;
 	}
 	
-	public String myList(){
-		Session s = null;
-	    Transaction t = null;
-	    try{
-	    	s  = HibernateSessionFactory.getSession();
-	    	String hql = "from Order o where o.clientId=" + order.getClientId();
-	   
-	    	orders = s.createQuery(hql).list();
-	    	if(orders.isEmpty() )
-	    	{
-	    			result = -1;
-		    		error = 300;//¶©µ¥Îª¿Õ
-	    	}
-	    	System.out.println("++++++++++++++list my order+++++++++++++++"+hql);
-	    	}catch (HibernateException e){
-	    		e.printStackTrace();
-	    	}finally{
-	    		s.close();
-	    	}
-		return Action.SUCCESS;
-	}
 	
-	public String myListServer(){
-		Session s = null;
-	    Transaction t = null;
-	    try{
-	    	s  = HibernateSessionFactory.getSession();
-	    	
-	    	String hql = "select o.orderId,o.desc,o.phone,o.addr,o.createTime,o.serveTime," +
-	    			"o.mathod,o.problem,o.clientId,o.serverId,o.priceId,p.selected " +
-	    			"from Order o, Price p where o.orderId=p.orderId and p.serverId=" + price.getServerId(); 
-	    	//System.out.println("++++++++++++++list server order1+++++++++++++++"+order.getClientId());
-	    	System.out.println("++++++++++++++list server order2+++++++++++++++"+price.getServerId());
-	    	
-	    	Query q = s.createQuery(hql);
-	    	
-	    	List<Object[]> list = q.list();
-	    	orders = new ArrayList<Order>();
-	        for(Object[] object : list){ 
-	        	order = new Order();
-	            order.setOrderId((Integer)object[0]);     
-	            order.setDesc((String)object[1]);     
-	            order.setPhone((String)object[2]);     
-	            order.setAddr((String)object[3]);     
-	            order.setCreateTime((Date)object[4]);     
-	            order.setServeTime((Date)object[5]);     
-	            order.setMathod((Integer)object[6]);     
-	            order.setProblem((Integer)object[7]);     
-	            order.setClientId((Integer)object[8]);     
-	            order.setServerId((Integer)object[9]);     
-	            order.setPriceId((Integer)object[10]);     
-	            order.setStatus((Integer)object[11]);     
-	            orders.add(order);
-	        }   
-	        
-	    	if(orders.isEmpty() )
-	    	{
-	    			result = -1;
-		    		error = 300;//¶©µ¥Îª¿Õ
-	    	}
-	    	System.out.println("++++++++++++++list server order+++++++++++++++"+hql);
-	    	}catch (HibernateException e){
-	    		e.printStackTrace();
-	    	}finally{
-	    		s.close();
-	    	}
-		return Action.SUCCESS;
-	}
 }
